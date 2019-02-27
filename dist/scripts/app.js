@@ -14955,10 +14955,10 @@ module.exports = function (module) {
 
 /***/ }),
 
-/***/ "./source/app/app.js":
-/*!***************************!*\
-  !*** ./source/app/app.js ***!
-  \***************************/
+/***/ "./src/scripts/app.js":
+/*!****************************!*\
+  !*** ./src/scripts/app.js ***!
+  \****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14979,19 +14979,19 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
-var _store = __webpack_require__(/*! @app/store */ "./source/app/store/index.js");
+var _store = __webpack_require__(/*! @app/store */ "./src/scripts/store/index.js");
 
 var _store2 = _interopRequireDefault(_store);
 
-var _guide = __webpack_require__(/*! @app/scenes/guide */ "./source/app/scenes/guide/index.js");
+var _guide = __webpack_require__(/*! @app/scenes/guide */ "./src/scripts/scenes/guide/index.js");
 
 var _guide2 = _interopRequireDefault(_guide);
 
-var _watchLive = __webpack_require__(/*! @app/scenes/watch-live */ "./source/app/scenes/watch-live/index.js");
+var _watchLive = __webpack_require__(/*! @app/scenes/watch-live */ "./src/scripts/scenes/watch-live/index.js");
 
 var _watchLive2 = _interopRequireDefault(_watchLive);
 
-var _watch = __webpack_require__(/*! @app/scenes/watch */ "./source/app/scenes/watch/index.js");
+var _watch = __webpack_require__(/*! @app/scenes/watch */ "./src/scripts/scenes/watch/index.js");
 
 var _watch2 = _interopRequireDefault(_watch);
 
@@ -15039,10 +15039,10 @@ exports.default = App;
 
 /***/ }),
 
-/***/ "./source/app/browser.js":
-/*!*******************************!*\
-  !*** ./source/app/browser.js ***!
-  \*******************************/
+/***/ "./src/scripts/browser.js":
+/*!********************************!*\
+  !*** ./src/scripts/browser.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15055,15 +15055,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 
-var _app = __webpack_require__(/*! ./app */ "./source/app/app.js");
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _app = __webpack_require__(/*! @app/app */ "./src/scripts/app.js");
 
 var _app2 = _interopRequireDefault(_app);
 
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-console.log('browser loaded');
 
 (0, _reactDom.hydrate)(_react2.default.createElement(
   _reactRouterDom.BrowserRouter,
@@ -15073,10 +15071,10 @@ console.log('browser loaded');
 
 /***/ }),
 
-/***/ "./source/app/scenes/guide/components/guide-item.js":
-/*!**********************************************************!*\
-  !*** ./source/app/scenes/guide/components/guide-item.js ***!
-  \**********************************************************/
+/***/ "./src/scripts/scenes/guide/components/guide-item.js":
+/*!***********************************************************!*\
+  !*** ./src/scripts/scenes/guide/components/guide-item.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15097,7 +15095,7 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
 
-var _store = __webpack_require__(/*! @app/store */ "./source/app/store/index.js");
+var _store = __webpack_require__(/*! @app/store */ "./src/scripts/store/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15157,10 +15155,10 @@ exports.default = /*connect(null, mapDispatchToProps)(*/(0, _reactRouter.withRou
 
 /***/ }),
 
-/***/ "./source/app/scenes/guide/index.js":
-/*!******************************************!*\
-  !*** ./source/app/scenes/guide/index.js ***!
-  \******************************************/
+/***/ "./src/scripts/scenes/guide/index.js":
+/*!*******************************************!*\
+  !*** ./src/scripts/scenes/guide/index.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15177,7 +15175,7 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _guideItem = __webpack_require__(/*! ./components/guide-item */ "./source/app/scenes/guide/components/guide-item.js");
+var _guideItem = __webpack_require__(/*! ./components/guide-item */ "./src/scripts/scenes/guide/components/guide-item.js");
 
 var _guideItem2 = _interopRequireDefault(_guideItem);
 
@@ -15228,10 +15226,10 @@ exports.default = Guide;
 
 /***/ }),
 
-/***/ "./source/app/scenes/watch-live/index.js":
-/*!***********************************************!*\
-  !*** ./source/app/scenes/watch-live/index.js ***!
-  \***********************************************/
+/***/ "./src/scripts/scenes/watch-live/index.js":
+/*!************************************************!*\
+  !*** ./src/scripts/scenes/watch-live/index.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15270,10 +15268,10 @@ exports.default = WatchLive;
 
 /***/ }),
 
-/***/ "./source/app/scenes/watch/index.js":
-/*!******************************************!*\
-  !*** ./source/app/scenes/watch/index.js ***!
-  \******************************************/
+/***/ "./src/scripts/scenes/watch/index.js":
+/*!*******************************************!*\
+  !*** ./src/scripts/scenes/watch/index.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15292,7 +15290,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _store = __webpack_require__(/*! @app/store */ "./source/app/store/index.js");
+var _store = __webpack_require__(/*! @app/store */ "./src/scripts/store/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15383,10 +15381,10 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ "./source/app/store/index.js":
-/*!***********************************!*\
-  !*** ./source/app/store/index.js ***!
-  \***********************************/
+/***/ "./src/scripts/store/index.js":
+/*!************************************!*\
+  !*** ./src/scripts/store/index.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15418,10 +15416,10 @@ exports.default = store;
 
 /***/ }),
 
-/***/ "./source/styles/app.scss":
-/*!********************************!*\
-  !*** ./source/styles/app.scss ***!
-  \********************************/
+/***/ "./src/styles/app.scss":
+/*!*****************************!*\
+  !*** ./src/styles/app.scss ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15430,14 +15428,14 @@ exports.default = store;
 /***/ }),
 
 /***/ 0:
-/*!**************************************************************!*\
-  !*** multi ./source/app/browser.js ./source/styles/app.scss ***!
-  \**************************************************************/
+/*!************************************************************!*\
+  !*** multi ./src/scripts/browser.js ./src/styles/app.scss ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/Santiago/Code/Personal/live-tv-streaming/source/app/browser.js */"./source/app/browser.js");
-module.exports = __webpack_require__(/*! /Users/Santiago/Code/Personal/live-tv-streaming/source/styles/app.scss */"./source/styles/app.scss");
+__webpack_require__(/*! /Users/Santiago/Code/Personal/live-tv-streaming/src/scripts/browser.js */"./src/scripts/browser.js");
+module.exports = __webpack_require__(/*! /Users/Santiago/Code/Personal/live-tv-streaming/src/styles/app.scss */"./src/styles/app.scss");
 
 
 /***/ })

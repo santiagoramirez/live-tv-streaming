@@ -1,23 +1,8 @@
+const fs = require('fs')
 const path = require('path')
+const config = require('./config')
 
-const SCRIPTS_ENTRY_PATH = path.join(__dirname, './source/app')
-const SCRIPTS_OUTPUT_PATH = './build/assets/scripts'
-
-const babelLoaderOptions = {
-  plugins: [
-    ['transform-async-to-promises'],
-    ['transform-class-properties'],
-    ['transform-object-rest-spread']
-  ],
-  presets: [
-    'es2015',
-    'react'
-  ]
-}
-
-var fs = require('fs');
-
-var nodeModules = {}
+const nodeModules = {}
 
 fs.readdirSync('node_modules')
   .filter(function(x) {
@@ -25,36 +10,42 @@ fs.readdirSync('node_modules')
   })
   .forEach(function(mod) {
     nodeModules[mod] = 'commonjs ' + mod;
-  });
+  })
 
-const config = {
+module.exports = {
   entry: {
-    'server': [
-      path.join(SCRIPTS_ENTRY_PATH, './server.js'),
-    ]
+    'server': path.join(config.SERVER_ENTRY_PATH, './server.js')
   },
   target: 'node',
   output: {
     path: __dirname,
-    filename: path.join(SCRIPTS_OUTPUT_PATH, './[name].js'),
+    filename: path.join(config.SERVER_OUTPUT_PATH, './[name].js'),
   },
   externals: nodeModules,
   module: {
     rules: [{
       test: /\.js$/,
-      use: [
-        { loader: 'babel-loader', options: babelLoaderOptions }
-      ]
+      use: [{
+        loader: 'babel-loader',
+        options: {
+          plugins: [
+            ['transform-async-to-promises'],
+            ['transform-class-properties'],
+            ['transform-object-rest-spread']
+          ],
+          presets: [
+            'es2015',
+            'react'
+          ]
+        }
+      }]
     }],
   },
   resolve: {
     alias: {
-      '@app': SCRIPTS_ENTRY_PATH,
+      '@app': config.SCRIPTS_ENTRY_PATH,
+      '@styles': config.STYLES_ENTRY_PATH
     }
   },
-  mode: 'development',
-  devtool: 'source-map',
   watch: true
 }
-
-module.exports = config

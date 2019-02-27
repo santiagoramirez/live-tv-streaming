@@ -5,12 +5,14 @@
   "scripts": {
     "build": "webpack --config webpack.config.browser.js",
     "build-server": "webpack --config webpack.config.server.js",
-    "start": "node build/assets/scripts/server.js"
+    "start": "node dist/server/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "mustache": "^3.0.1",
+    "mustache-express": "^1.2.8",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",

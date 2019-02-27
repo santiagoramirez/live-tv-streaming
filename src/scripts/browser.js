@@ -1,9 +1,8 @@
 import React from 'react'
 import {hydrate} from 'react-dom'
-import App from './app'
 import {BrowserRouter} from 'react-router-dom'
 
-console.log('browser loaded')
+import App from '@app/app'
 
 hydrate(
   <BrowserRouter>

@@ -1,6 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux-dom'
-import {pause, play} from '@app/store/watch'
+import {connect} from 'react-redux'
+import {pause, play} from '@app/store'
 
 class Watch extends React.Component {
 

@@ -1,7 +1,4 @@
-
-/**
- * Component for watching live TV.
- */
+import React from 'react'
 
 class WatchLive extends React.Component {
 

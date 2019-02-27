@@ -1,11 +1,11 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const SCRIPTS_ENTRY_PATH = path.join(__dirname, './js/source')
-const SCRIPTS_OUTPUT_PATH = './js/build'
+const SCRIPTS_ENTRY_PATH = path.join(__dirname, './source/app')
+const SCRIPTS_OUTPUT_PATH = './build/assets/scripts'
 
-const STYLES_ENTRY_PATH = path.join(__dirname, './styles/source')
-const STYLES_OUTPUT_PATH = './styles/build'
+const STYLES_ENTRY_PATH = path.join(__dirname, './source/styles')
+const STYLES_OUTPUT_PATH = './build/assets/styles'
 
 const babelLoaderOptions = {
   plugins: [
@@ -36,9 +36,9 @@ const postCSSLoaderOptions = {
 
 const config = {
   entry: {
-    'main': [
-      path.join(SCRIPTS_ENTRY_PATH, './main.js'),
-      path.join(STYLES_ENTRY_PATH, './main.scss')
+    'app': [
+      path.join(SCRIPTS_ENTRY_PATH, './browser.js'),
+      path.join(STYLES_ENTRY_PATH, './app.scss')
     ]
   },
   output: {
@@ -73,7 +73,8 @@ const config = {
     }
   },
   mode: 'development',
-  devtool: 'source-map'
+  devtool: 'source-map',
+  watch: true
 }
 
 module.exports = config

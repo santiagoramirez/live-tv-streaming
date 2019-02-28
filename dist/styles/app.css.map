@@ -1,1 +1,1 @@
-{"version":3,"sources":["webpack:///./src/styles/app.scss"],"names":[],"mappings":"AAAA;AACA,iBAAiB","file":"dist/styles/app.css","sourcesContent":["body {\n  color: #000000; }\n"],"sourceRoot":""}
+{"version":3,"sources":["webpack:///./src/scenes/Watch/Watch.scss"],"names":[],"mappings":";;;AAAA;AACA,aAAa","file":"dist/styles/app.css","sourcesContent":[".watch-live {\n  color: red; }\n"],"sourceRoot":""}

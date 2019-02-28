@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('./config')
+const baseWebpackConfig = require('./webpack.config.base')
 
 const nodeModules = {}
 
@@ -12,7 +13,7 @@ fs.readdirSync('node_modules')
     nodeModules[mod] = 'commonjs ' + mod;
   })
 
-module.exports = {
+module.exports = Object.assign({}, baseWebpackConfig, {
   entry: {
     'index': path.join(config.SERVER_ENTRY_PATH, './index.js')
   },
@@ -22,30 +23,6 @@ module.exports = {
     filename: path.join(config.SERVER_OUTPUT_PATH, './[name].bundle.js'),
   },
   externals: nodeModules,
-  module: {
-    rules: [{
-      test: /\.js$/,
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          plugins: [
-            ['transform-async-to-promises'],
-            ['transform-class-properties'],
-            ['transform-object-rest-spread']
-          ],
-          presets: [
-            'es2015',
-            'react'
-          ]
-        }
-      }]
-    }],
-  },
-  resolve: {
-    alias: {
-      '@app': config.SCRIPTS_ENTRY_PATH,
-      '@styles': config.STYLES_ENTRY_PATH
-    }
-  },
-  watch: true
-}
+  mode: 'development',
+  devtool: 'source-map'
+})

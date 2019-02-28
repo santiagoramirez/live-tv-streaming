@@ -1,5 +1,7 @@
+import './Guide.scss'
+
 import React from 'react'
-import GuideItem from './components/guide-item'
+import GuideItem from './components/GuideItem'
 
 class Guide extends React.Component {
 

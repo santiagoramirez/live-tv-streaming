@@ -1,11 +1,10 @@
-import path from 'path'
 import express from 'express'
 import mustacheExpress from 'mustache-express'
 import React from 'react'
 import {StaticRouter} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
 
-import App from '@app/app'
+import App from '@app/App.jsx'
 
 const server = express()
 const port = 3000

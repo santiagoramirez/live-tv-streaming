@@ -4078,10 +4078,6 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
 
-var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
-
-var _store2 = _interopRequireDefault(_store);
-
 var _Guide = __webpack_require__(/*! @app/scenes/Guide */ "./src/scenes/Guide/Guide.jsx");
 
 var _Guide2 = _interopRequireDefault(_Guide);
@@ -4093,6 +4089,10 @@ var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 var _Watch = __webpack_require__(/*! @app/scenes/Watch */ "./src/scenes/Watch/Watch.jsx");
 
 var _Watch2 = _interopRequireDefault(_Watch);
+
+var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
+
+var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

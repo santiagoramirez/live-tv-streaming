@@ -26,7 +26,7 @@ server.get('/watch*', (request, response) => {
 
   response.render('app.mustache', {
     body: renderedHTML,
-    title: 'Live TV Streaming'
+    title: 'SantiTV − Live TV, Videos On Demand'
   })
 })
 

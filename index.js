@@ -10,9 +10,9 @@ import App from '@app/app'
 const server = express()
 const port = 3000
 
-server.engine('mustache', mustacheExpress)
+server.engine('mustache', mustacheExpress())
 
-server.set('views', path.join(__dirname, '/views'))
+server.set('views', './views')
 server.set('view engine', 'mustache')
 
 server.use('/assets/scripts', express.static('dist/scripts'))

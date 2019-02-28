@@ -8,8 +8,7 @@
     "build-server": "webpack --config webpack.config.server.js --watch",
     "start": "node index.bundle.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Santiago Ramirez",
   "dependencies": {
     "express": "^4.16.4",
     "mustache": "^3.0.1",
@@ -42,7 +41,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com-me:santiagoramirez/live-tv-streaming.git"
-  },
-  "description": ""
+    "url": "git@github-me.com:santiagoramirez/live-tv-streaming.git"
+  }
 }

@@ -14,12 +14,12 @@ fs.readdirSync('node_modules')
 
 module.exports = {
   entry: {
-    'server': path.join(config.SERVER_ENTRY_PATH, './server.js')
+    'index': path.join(config.SERVER_ENTRY_PATH, './index.js')
   },
   target: 'node',
   output: {
     path: __dirname,
-    filename: path.join(config.SERVER_OUTPUT_PATH, './[name].js'),
+    filename: path.join(config.SERVER_OUTPUT_PATH, './[name].bundle.js'),
   },
   externals: nodeModules,
   module: {

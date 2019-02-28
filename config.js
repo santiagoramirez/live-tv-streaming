@@ -1,8 +1,8 @@
 const path = require('path')
 
 const config = {
-  SERVER_ENTRY_PATH: path.join(__dirname, './src/server'),
-  SERVER_OUTPUT_PATH: './dist/server',
+  SERVER_ENTRY_PATH: path.join(__dirname),
+  SERVER_OUTPUT_PATH: './',
 
   SCRIPTS_ENTRY_PATH: path.join(__dirname, './src/scripts'),
   SCRIPTS_OUTPUT_PATH: './dist/scripts',

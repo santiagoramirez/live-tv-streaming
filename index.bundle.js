@@ -4155,7 +4155,7 @@ var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _GuideItem = __webpack_require__(/*! ./components/GuideItem */ "./src/scenes/Guide/components/GuideItem.jsx");
+var _GuideItem = __webpack_require__(/*! ./components/GuideItem */ "./src/scenes/Guide/components/GuideItem/GuideItem.jsx");
 
 var _GuideItem2 = _interopRequireDefault(_GuideItem);
 
@@ -4217,10 +4217,10 @@ exports.default = Guide;
 
 /***/ }),
 
-/***/ "./src/scenes/Guide/components/GuideItem.jsx":
-/*!***************************************************!*\
-  !*** ./src/scenes/Guide/components/GuideItem.jsx ***!
-  \***************************************************/
+/***/ "./src/scenes/Guide/components/GuideItem/GuideItem.jsx":
+/*!*************************************************************!*\
+  !*** ./src/scenes/Guide/components/GuideItem/GuideItem.jsx ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4233,7 +4233,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(/*! ./GuideItem.scss */ "./src/scenes/Guide/components/GuideItem.scss");
+__webpack_require__(/*! ./GuideItem.scss */ "./src/scenes/Guide/components/GuideItem/GuideItem.scss");
 
 var _react = __webpack_require__(/*! react */ "react");
 
@@ -4284,10 +4284,10 @@ exports.default = (0, _reactRouterDom.withRouter)(GuideItem);
 
 /***/ }),
 
-/***/ "./src/scenes/Guide/components/GuideItem.scss":
-/*!****************************************************!*\
-  !*** ./src/scenes/Guide/components/GuideItem.scss ***!
-  \****************************************************/
+/***/ "./src/scenes/Guide/components/GuideItem/GuideItem.scss":
+/*!**************************************************************!*\
+  !*** ./src/scenes/Guide/components/GuideItem/GuideItem.scss ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -24,15 +24,25 @@ body {
   left: 0;
   bottom: 0; }
 
-.video-player-guide-link {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  color: #ffffff;
-  text-decoration: none; }
+.video-player .top-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; }
+  .video-player .top-controls .control-return,
+  .video-player .top-controls .control-guide {
+    color: #ffffff;
+    text-decoration: none; }
 
-.watch-live {
-  color: red; }
+.video-player .bottom-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+  .video-player .bottom-controls .control-play,
+  .video-player .bottom-controls .control-pause {
+    color: #ffffff; }
+
 
 
 /*# sourceMappingURL=index.css.map*/

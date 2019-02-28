@@ -1,12 +1,13 @@
-import { createStore, applyMiddleware } from 'redux'
-import { createLogger } from 'redux-logger'
+import {createStore, applyMiddleware, combineReducers} from 'redux'
+import {createLogger} from 'redux-logger'
 import thunk from 'redux-thunk'
 
-function reducer(state, action) {
-  return state
-}
+import videoPlayer from '@app/store/video-player/reducers'
 
 const logger = createLogger()
-const store = createStore(reducer, applyMiddleware(thunk, logger))
+
+const store = createStore(combineReducers({
+  videoPlayer
+}), applyMiddleware(thunk, logger))
 
 export default store

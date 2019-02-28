@@ -6,7 +6,8 @@ import {Route, Switch} from 'react-router-dom'
 
 import store from '@app/store'
 
-import WatchLive from '@app/scenes/WatchLive'
+import Guide from '@app/scenes/Guide'
+import VideoPlayer from '@app/scenes/VideoPlayer'
 import Watch from '@app/scenes/Watch'
 
 class App extends React.Component {
@@ -15,8 +16,10 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <Switch>
-          <Route path="/watch/live/:channelId" component={WatchLive} />
-          <Route path="/watch/video/:videoId" component={Watch} />
+          <Route exact path="/watch" component={Watch} />
+          <Route path="/watch/guide" component={Guide} />
+          <Route path="/watch/live/:channelId" component={VideoPlayer} />
+          <Route path="/watch/video/:videoId" component={VideoPlayer} />
         </Switch>
       </Provider>
     )

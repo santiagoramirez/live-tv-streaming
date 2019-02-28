@@ -1,0 +1,12 @@
+.video-player {
+  .bottom-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .control-play,
+    .control-pause {
+      color: #ffffff;
+    }
+  }
+}

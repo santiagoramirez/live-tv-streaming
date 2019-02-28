@@ -17,7 +17,7 @@ server.set('view engine', 'mustache')
 server.use('/assets/scripts', express.static('dist/scripts'))
 server.use('/assets/styles', express.static('dist/styles'))
 
-server.get('/*', (request, response) => {
+server.get('/watch*', (request, response) => {
   const renderedHTML = renderToString(
     <StaticRouter location={request.url} context={{}}>
       <App />

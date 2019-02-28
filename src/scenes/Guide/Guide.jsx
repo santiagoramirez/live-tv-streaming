@@ -1,36 +1,16 @@
-import './Guide.scss'
-
 import React from 'react'
-import GuideItem from './components/GuideItem'
+import Guide from '@app/components/Guide'
 
-class Guide extends React.Component {
+class GuidePage extends React.Component {
 
   render() {
-    const channels = [{
-      id: 1,
-      title: 'Fox',
-      logo: 'fox.png'
-    }, {
-      id: 2,
-      title: 'NBC',
-      logo: 'nbc.png'
-    }, {
-      id: 3,
-      title: 'ABC',
-      logo: 'nbc.png'
-    }]
-
     return (
-      <div className="guide">
-        <div className="guide-list">
-          {channels.map((channel, i) =>
-            <GuideItem channel={channel} key={i}></GuideItem>
-          )}
-        </div>
+      <div className="page-guide">
+        <Guide />
       </div>
     )
   }
 
 }
 
-export default Guide
+export default GuidePage

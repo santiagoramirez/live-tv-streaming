@@ -129,7 +129,7 @@ server.set('view engine', 'mustache');
 server.use('/assets/scripts', _express2.default.static('dist/scripts'));
 server.use('/assets/styles', _express2.default.static('dist/styles'));
 
-server.get('/*', function (request, response) {
+server.get('/watch*', function (request, response) {
   var renderedHTML = (0, _server.renderToString)(_react2.default.createElement(
     _reactRouterDom.StaticRouter,
     { location: request.url, context: {} },
@@ -4082,9 +4082,13 @@ var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
 
 var _store2 = _interopRequireDefault(_store);
 
-var _WatchLive = __webpack_require__(/*! @app/scenes/WatchLive */ "./src/scenes/WatchLive/WatchLive.jsx");
+var _Guide = __webpack_require__(/*! @app/scenes/Guide */ "./src/scenes/Guide/Guide.jsx");
 
-var _WatchLive2 = _interopRequireDefault(_WatchLive);
+var _Guide2 = _interopRequireDefault(_Guide);
+
+var _VideoPlayer = __webpack_require__(/*! @app/scenes/VideoPlayer */ "./src/scenes/VideoPlayer/VideoPlayer.jsx");
+
+var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
 var _Watch = __webpack_require__(/*! @app/scenes/Watch */ "./src/scenes/Watch/Watch.jsx");
 
@@ -4116,8 +4120,10 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           _reactRouterDom.Switch,
           null,
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/watch/live/:channelId', component: _WatchLive2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/watch/video/:videoId', component: _Watch2.default })
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/watch', component: _Watch2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/watch/guide', component: _Guide2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/watch/live/:channelId', component: _VideoPlayer2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/watch/video/:videoId', component: _VideoPlayer2.default })
         )
       );
     }
@@ -4141,10 +4147,10 @@ exports.default = App;
 
 /***/ }),
 
-/***/ "./src/scenes/Guide/Guide.jsx":
-/*!************************************!*\
-  !*** ./src/scenes/Guide/Guide.jsx ***!
-  \************************************/
+/***/ "./src/components/Guide/Guide.jsx":
+/*!****************************************!*\
+  !*** ./src/components/Guide/Guide.jsx ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4157,13 +4163,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(/*! ./Guide.scss */ "./src/scenes/Guide/Guide.scss");
+__webpack_require__(/*! ./Guide.scss */ "./src/components/Guide/Guide.scss");
 
 var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _GuideItem = __webpack_require__(/*! ./components/GuideItem */ "./src/scenes/Guide/components/GuideItem/GuideItem.jsx");
+var _GuideItem = __webpack_require__(/*! ./components/GuideItem */ "./src/components/Guide/components/GuideItem/GuideItem.jsx");
 
 var _GuideItem2 = _interopRequireDefault(_GuideItem);
 
@@ -4222,10 +4228,10 @@ exports.default = Guide;
 
 /***/ }),
 
-/***/ "./src/scenes/Guide/Guide.scss":
-/*!*************************************!*\
-  !*** ./src/scenes/Guide/Guide.scss ***!
-  \*************************************/
+/***/ "./src/components/Guide/Guide.scss":
+/*!*****************************************!*\
+  !*** ./src/components/Guide/Guide.scss ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4233,10 +4239,10 @@ exports.default = Guide;
 
 /***/ }),
 
-/***/ "./src/scenes/Guide/components/GuideItem/GuideItem.jsx":
-/*!*************************************************************!*\
-  !*** ./src/scenes/Guide/components/GuideItem/GuideItem.jsx ***!
-  \*************************************************************/
+/***/ "./src/components/Guide/components/GuideItem/GuideItem.jsx":
+/*!*****************************************************************!*\
+  !*** ./src/components/Guide/components/GuideItem/GuideItem.jsx ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4249,13 +4255,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(/*! ./GuideItem.scss */ "./src/scenes/Guide/components/GuideItem/GuideItem.scss");
+__webpack_require__(/*! ./GuideItem.scss */ "./src/components/Guide/components/GuideItem/GuideItem.scss");
 
 var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
+
+var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4275,11 +4285,21 @@ var GuideItem = function (_React$Component) {
   }
 
   _createClass(GuideItem, [{
+    key: 'handleGuideItemClick',
+    value: function handleGuideItemClick() {
+      this.props.hideGuide();
+      this.props.history.push('/watch/live/' + this.props.channel.id);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/watch/live/' + this.props.channel.id },
+        'a',
+        { onClick: function onClick() {
+            return _this2.handleGuideItemClick();
+          } },
         _react2.default.createElement(
           'div',
           { className: 'guide-item' },
@@ -4296,14 +4316,414 @@ var GuideItem = function (_React$Component) {
   return GuideItem;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRouterDom.withRouter)(GuideItem);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    hideGuide: function hideGuide() {
+      return dispatch((0, _actions.hideGuide)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactRouterDom.withRouter)(GuideItem));
 
 /***/ }),
 
-/***/ "./src/scenes/Guide/components/GuideItem/GuideItem.scss":
-/*!**************************************************************!*\
-  !*** ./src/scenes/Guide/components/GuideItem/GuideItem.scss ***!
-  \**************************************************************/
+/***/ "./src/components/Guide/components/GuideItem/GuideItem.scss":
+/*!******************************************************************!*\
+  !*** ./src/components/Guide/components/GuideItem/GuideItem.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/scenes/Guide/Guide.jsx":
+/*!************************************!*\
+  !*** ./src/scenes/Guide/Guide.jsx ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Guide = __webpack_require__(/*! @app/components/Guide */ "./src/components/Guide/Guide.jsx");
+
+var _Guide2 = _interopRequireDefault(_Guide);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GuidePage = function (_React$Component) {
+  _inherits(GuidePage, _React$Component);
+
+  function GuidePage() {
+    _classCallCheck(this, GuidePage);
+
+    return _possibleConstructorReturn(this, (GuidePage.__proto__ || Object.getPrototypeOf(GuidePage)).apply(this, arguments));
+  }
+
+  _createClass(GuidePage, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'page-guide' },
+        _react2.default.createElement(_Guide2.default, null)
+      );
+    }
+  }]);
+
+  return GuidePage;
+}(_react2.default.Component);
+
+exports.default = GuidePage;
+
+/***/ }),
+
+/***/ "./src/scenes/VideoPlayer/VideoPlayer.jsx":
+/*!************************************************!*\
+  !*** ./src/scenes/VideoPlayer/VideoPlayer.jsx ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(/*! ./VideoPlayer.scss */ "./src/scenes/VideoPlayer/VideoPlayer.scss");
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
+
+var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
+
+var _Guide = __webpack_require__(/*! @app/components/Guide */ "./src/components/Guide/Guide.jsx");
+
+var _Guide2 = _interopRequireDefault(_Guide);
+
+var _TopControls = __webpack_require__(/*! ./components/TopControls */ "./src/scenes/VideoPlayer/components/TopControls/TopControls.jsx");
+
+var _TopControls2 = _interopRequireDefault(_TopControls);
+
+var _BottomControls = __webpack_require__(/*! ./components/BottomControls */ "./src/scenes/VideoPlayer/components/BottomControls/BottomControls.jsx");
+
+var _BottomControls2 = _interopRequireDefault(_BottomControls);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var VideoPlayer = function (_React$Component) {
+  _inherits(VideoPlayer, _React$Component);
+
+  function VideoPlayer(props) {
+    _classCallCheck(this, VideoPlayer);
+
+    var _this = _possibleConstructorReturn(this, (VideoPlayer.__proto__ || Object.getPrototypeOf(VideoPlayer)).call(this, props));
+
+    _this.videoRef = _react2.default.createRef();
+    return _this;
+  }
+
+  _createClass(VideoPlayer, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'video-player' },
+        _react2.default.createElement('video', { className: 'video-player-video',
+          src: this.props.source,
+          ref: this.videoRef,
+          onPlay: function onPlay() {
+            return _this2.props.play();
+          },
+          onPause: function onPause() {
+            return _this2.props.pause();
+          } }),
+        _react2.default.createElement(_TopControls2.default, null),
+        _react2.default.createElement(_BottomControls2.default, null),
+        this.props.showGuideBool ? _react2.default.createElement(_Guide2.default, null) : ''
+      );
+    }
+  }]);
+
+  return VideoPlayer;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    showGuideBool: state.videoPlayer.showGuide
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    play: function play() {
+      return dispatch((0, _actions.play)());
+    },
+    pause: function pause() {
+      return dispatch((0, _actions.pause)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(VideoPlayer);
+
+/***/ }),
+
+/***/ "./src/scenes/VideoPlayer/VideoPlayer.scss":
+/*!*************************************************!*\
+  !*** ./src/scenes/VideoPlayer/VideoPlayer.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/scenes/VideoPlayer/components/BottomControls/BottomControls.jsx":
+/*!*****************************************************************************!*\
+  !*** ./src/scenes/VideoPlayer/components/BottomControls/BottomControls.jsx ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(/*! ./BottomControls.scss */ "./src/scenes/VideoPlayer/components/BottomControls/BottomControls.scss");
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
+
+var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BottomControls = function (_React$Component) {
+  _inherits(BottomControls, _React$Component);
+
+  function BottomControls() {
+    _classCallCheck(this, BottomControls);
+
+    return _possibleConstructorReturn(this, (BottomControls.__proto__ || Object.getPrototypeOf(BottomControls)).apply(this, arguments));
+  }
+
+  _createClass(BottomControls, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'bottom-controls' },
+        this.props.isPaused ? _react2.default.createElement(
+          'div',
+          { className: 'control-play', onClick: function onClick(e) {
+              return _this2.props.play();
+            } },
+          'Play'
+        ) : _react2.default.createElement(
+          'div',
+          { className: 'control-pause', onClick: function onClick(e) {
+              return _this2.props.pause();
+            } },
+          'Pause'
+        )
+      );
+    }
+  }]);
+
+  return BottomControls;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isPaused: false
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    play: function play() {
+      return dispatch((0, _actions.play)());
+    },
+    pause: function pause() {
+      return dispatch((0, _actions.pause)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BottomControls);
+
+/***/ }),
+
+/***/ "./src/scenes/VideoPlayer/components/BottomControls/BottomControls.scss":
+/*!******************************************************************************!*\
+  !*** ./src/scenes/VideoPlayer/components/BottomControls/BottomControls.scss ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/scenes/VideoPlayer/components/TopControls/TopControls.jsx":
+/*!***********************************************************************!*\
+  !*** ./src/scenes/VideoPlayer/components/TopControls/TopControls.jsx ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(/*! ./TopControls.scss */ "./src/scenes/VideoPlayer/components/TopControls/TopControls.scss");
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
+
+var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopControls = function (_React$Component) {
+  _inherits(TopControls, _React$Component);
+
+  function TopControls() {
+    _classCallCheck(this, TopControls);
+
+    return _possibleConstructorReturn(this, (TopControls.__proto__ || Object.getPrototypeOf(TopControls)).apply(this, arguments));
+  }
+
+  _createClass(TopControls, [{
+    key: 'toggleGuide',
+    value: function toggleGuide() {
+      if (!this.props.showGuideBool) {
+        this.props.showGuide();
+      } else {
+        this.props.hideGuide();
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'top-controls' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: 'control-return', to: '/watch' },
+          'Return'
+        ),
+        _react2.default.createElement(
+          'a',
+          { className: 'control-guide', onClick: function onClick() {
+              return _this2.toggleGuide();
+            } },
+          'View Guide'
+        )
+      );
+    }
+  }]);
+
+  return TopControls;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    showGuideBool: state.videoPlayer.showGuide
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    showGuide: function showGuide() {
+      return dispatch((0, _actions.showGuide)());
+    },
+    hideGuide: function hideGuide() {
+      return dispatch((0, _actions.hideGuide)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TopControls);
+
+/***/ }),
+
+/***/ "./src/scenes/VideoPlayer/components/TopControls/TopControls.scss":
+/*!************************************************************************!*\
+  !*** ./src/scenes/VideoPlayer/components/TopControls/TopControls.scss ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4333,9 +4753,7 @@ var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
-
-var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4348,54 +4766,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Watch = function (_React$Component) {
   _inherits(Watch, _React$Component);
 
-  function Watch(props) {
+  function Watch() {
     _classCallCheck(this, Watch);
 
-    var _this = _possibleConstructorReturn(this, (Watch.__proto__ || Object.getPrototypeOf(Watch)).call(this, props));
-
-    _this.videoRef = _react2.default.createRef();
-    return _this;
+    return _possibleConstructorReturn(this, (Watch.__proto__ || Object.getPrototypeOf(Watch)).apply(this, arguments));
   }
 
   _createClass(Watch, [{
-    key: 'handlePause',
-    value: function handlePause(e) {
-      // Do something here...
-    }
-  }, {
-    key: 'handlePlay',
-    value: function handlePlay(e) {
-      // Do something here...
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return _react2.default.createElement(
         'div',
         { className: 'watch' },
-        _react2.default.createElement('video', { className: 'watch-video', src: this.props.source, ref: this.videoRef, onPause: function onPause(e) {
-            return handlePause(e);
-          }, onPlay: function onPlay(e) {
-            return handlePlay(e);
-          } }),
+        'This is the main page for finding something good to watch.',
         _react2.default.createElement(
-          'div',
-          { className: 'watch-controls' },
-          this.props.isPaused ? _react2.default.createElement(
-            'div',
-            { className: 'control-play', onClick: function onClick(e) {
-                return _this2.videoRef.play();
-              } },
-            'Play'
-          ) : _react2.default.createElement(
-            'div',
-            { className: 'control-pause', onClick: function onClick(e) {
-                return _this2.videoRef.pause();
-              } },
-            'Pause'
-          )
+          _reactRouterDom.Link,
+          { to: '/watch/guide' },
+          'View Guide'
         )
       );
     }
@@ -4404,25 +4791,7 @@ var Watch = function (_React$Component) {
   return Watch;
 }(_react2.default.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    source: state.watch.source,
-    isPaused: state.watch.isPaused
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    play: function play() {
-      return dispatch((0, _store.play)());
-    },
-    pause: function pause() {
-      return dispatch((0, _store.pause)());
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Watch);
+exports.default = Watch;
 
 /***/ }),
 
@@ -4430,103 +4799,6 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 /*!*************************************!*\
   !*** ./src/scenes/Watch/Watch.scss ***!
   \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "./src/scenes/WatchLive/WatchLive.jsx":
-/*!********************************************!*\
-  !*** ./src/scenes/WatchLive/WatchLive.jsx ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-__webpack_require__(/*! ./WatchLive.scss */ "./src/scenes/WatchLive/WatchLive.scss");
-
-var _react = __webpack_require__(/*! react */ "react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Guide = __webpack_require__(/*! @app/scenes/Guide */ "./src/scenes/Guide/Guide.jsx");
-
-var _Guide2 = _interopRequireDefault(_Guide);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WatchLive = function (_React$Component) {
-  _inherits(WatchLive, _React$Component);
-
-  function WatchLive(props) {
-    _classCallCheck(this, WatchLive);
-
-    var _this = _possibleConstructorReturn(this, (WatchLive.__proto__ || Object.getPrototypeOf(WatchLive)).call(this, props));
-
-    _this.state = {
-      showGuide: false
-    };
-    return _this;
-  }
-
-  _createClass(WatchLive, [{
-    key: 'toggleGuide',
-    value: function toggleGuide() {
-      if (!this.state.showGuide) {
-        this.setState({ showGuide: true });
-      } else {
-        this.setState({ showGuide: true });
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'video-player' },
-        _react2.default.createElement('video', null),
-        _react2.default.createElement(
-          'a',
-          { className: 'video-player-guide-link', onClick: function onClick() {
-              return _this2.toggleGuide();
-            } },
-          'Back To Guide'
-        ),
-        this.state.showGuide ? _react2.default.createElement(_Guide2.default, null) : '',
-        this.props.children
-      );
-    }
-  }]);
-
-  return WatchLive;
-}(_react2.default.Component);
-
-exports.default = WatchLive;
-
-/***/ }),
-
-/***/ "./src/scenes/WatchLive/WatchLive.scss":
-/*!*********************************************!*\
-  !*** ./src/scenes/WatchLive/WatchLive.scss ***!
-  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4556,16 +4828,103 @@ var _reduxThunk = __webpack_require__(/*! redux-thunk */ "redux-thunk");
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
+var _reducers = __webpack_require__(/*! @app/store/video-player/reducers */ "./src/store/video-player/reducers.js");
+
+var _reducers2 = _interopRequireDefault(_reducers);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function reducer(state, action) {
-  return state;
-}
-
 var logger = (0, _reduxLogger.createLogger)();
-var store = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxThunk2.default, logger));
+
+var store = (0, _redux.createStore)((0, _redux.combineReducers)({
+  videoPlayer: _reducers2.default
+}), (0, _redux.applyMiddleware)(_reduxThunk2.default, logger));
 
 exports.default = store;
+
+/***/ }),
+
+/***/ "./src/store/video-player/actions.js":
+/*!*******************************************!*\
+  !*** ./src/store/video-player/actions.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var GUIDE_SHOW = exports.GUIDE_SHOW = 'VIDEO_PLAYER/GUIDE_SHOW';
+var GUIDE_HIDE = exports.GUIDE_HIDE = 'VIDEO_PLAYER/GUIDE_HIDE';
+var PLAY = exports.PLAY = 'VIDEO_PLAYER/PLAY';
+var PAUSE = exports.PAUSE = 'VIDEO_PLAYER/PAUSE';
+
+var showGuide = exports.showGuide = function showGuide() {
+  return {
+    type: GUIDE_SHOW
+  };
+};
+
+var hideGuide = exports.hideGuide = function hideGuide() {
+  return {
+    type: GUIDE_HIDE
+  };
+};
+
+var play = exports.play = function play() {
+  return {
+    type: PLAY
+  };
+};
+
+var pause = exports.pause = function pause() {
+  return {
+    type: PAUSE
+  };
+};
+
+/***/ }),
+
+/***/ "./src/store/video-player/reducers.js":
+/*!********************************************!*\
+  !*** ./src/store/video-player/reducers.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _actions = __webpack_require__(/*! ./actions */ "./src/store/video-player/actions.js");
+
+var initialState = {
+  showGuide: false
+};
+
+function videoPlayerReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _actions.GUIDE_SHOW:
+      return Object.assign({}, state, { showGuide: true });
+
+    case _actions.GUIDE_HIDE:
+      return Object.assign({}, state, { showGuide: false });
+
+    default:
+      return state;
+  }
+}
+
+exports.default = videoPlayerReducer;
 
 /***/ }),
 

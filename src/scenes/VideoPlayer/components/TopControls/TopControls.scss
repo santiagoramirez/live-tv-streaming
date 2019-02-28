@@ -1,0 +1,13 @@
+.video-player {
+  .top-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    .control-return,
+    .control-guide {
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+}

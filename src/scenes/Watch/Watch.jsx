@@ -1,49 +1,19 @@
 import './Watch.scss'
 
 import React from 'react'
-import {connect} from 'react-redux'
-import {pause, play} from '@app/store'
+import {Link} from 'react-router-dom'
 
 class Watch extends React.Component {
-
-  constructor(props) {
-    super(props)
-    this.videoRef = React.createRef()
-  }
-
-  handlePause(e) {
-    // Do something here...
-  }
-
-  handlePlay(e) {
-    // Do something here...
-  }
 
   render() {
     return (
       <div className="watch">
-        <video className="watch-video" src={this.props.source} ref={this.videoRef} onPause={(e) => handlePause(e)} onPlay={(e) => handlePlay(e)}></video>
-        <div className="watch-controls">
-          {this.props.isPaused ? (
-            <div className="control-play" onClick={(e) => this.videoRef.play()}>Play</div>
-          ) : (
-            <div className="control-pause" onClick={(e) => this.videoRef.pause()}>Pause</div>
-          ) }
-        </div>
+        This is the main page for finding something good to watch.
+        <Link to="/watch/guide">View Guide</Link>
       </div>
     )
   }
 
 }
 
-const mapStateToProps = state => ({
-  source: state.watch.source,
-  isPaused: state.watch.isPaused
-})
-
-const mapDispatchToProps = dispatch => ({
-  play: () => dispatch(play()),
-  pause: () => dispatch(pause())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Watch)
+export default Watch

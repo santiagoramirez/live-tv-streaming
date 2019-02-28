@@ -3,6 +3,7 @@ import './GuideItem.scss'
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+
 import {hideGuide} from '@app/store/video-player/actions'
 
 class GuideItem extends React.Component {

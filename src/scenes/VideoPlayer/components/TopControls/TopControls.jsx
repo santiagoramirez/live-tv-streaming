@@ -3,6 +3,7 @@ import './TopControls.scss'
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+
 import {showGuide, hideGuide} from '@app/store/video-player/actions'
 
 class TopControls extends React.Component {

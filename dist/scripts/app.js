@@ -15252,8 +15252,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
 
-var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
-
 var _Guide = __webpack_require__(/*! @app/components/Guide */ "./src/components/Guide/Guide.jsx");
 
 var _Guide2 = _interopRequireDefault(_Guide);
@@ -15265,6 +15263,8 @@ var _TopControls2 = _interopRequireDefault(_TopControls);
 var _BottomControls = __webpack_require__(/*! ./components/BottomControls */ "./src/scenes/VideoPlayer/components/BottomControls/BottomControls.jsx");
 
 var _BottomControls2 = _interopRequireDefault(_BottomControls);
+
+var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

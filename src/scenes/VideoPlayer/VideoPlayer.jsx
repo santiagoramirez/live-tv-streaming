@@ -2,11 +2,11 @@ import './VideoPlayer.scss'
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {play, pause, showGuide, hideGuide} from '@app/store/video-player/actions'
 
 import Guide from '@app/components/Guide'
 import TopControls from './components/TopControls'
 import BottomControls from './components/BottomControls'
+import {play, pause} from '@app/store/video-player/actions'
 
 class VideoPlayer extends React.Component {
 

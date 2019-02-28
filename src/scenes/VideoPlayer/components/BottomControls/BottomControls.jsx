@@ -2,6 +2,7 @@ import './BottomControls.scss'
 
 import React from 'react'
 import {connect} from 'react-redux'
+
 import {play, pause} from '@app/store/video-player/actions'
 
 class BottomControls extends React.Component {

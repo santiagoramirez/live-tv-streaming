@@ -7,9 +7,17 @@ class Guide extends React.Component {
 
   render() {
     const channels = [{
-      id: 2292,
+      id: 1,
       title: 'Fox',
       logo: 'fox.png'
+    }, {
+      id: 2,
+      title: 'NBC',
+      logo: 'nbc.png'
+    }, {
+      id: 3,
+      title: 'ABC',
+      logo: 'nbc.png'
     }]
 
     return (

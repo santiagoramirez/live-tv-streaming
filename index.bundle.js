@@ -4068,6 +4068,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+__webpack_require__(/*! ./App.scss */ "./src/App.scss");
+
 var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
@@ -4079,10 +4081,6 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-
 var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
 
 var _store2 = _interopRequireDefault(_store);
-
-var _Guide = __webpack_require__(/*! @app/scenes/Guide */ "./src/scenes/Guide/Guide.jsx");
-
-var _Guide2 = _interopRequireDefault(_Guide);
 
 var _WatchLive = __webpack_require__(/*! @app/scenes/WatchLive */ "./src/scenes/WatchLive/WatchLive.jsx");
 
@@ -4118,7 +4116,6 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           _reactRouterDom.Switch,
           null,
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/guide', component: _Guide2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { path: '/watch/live/:channelId', component: _WatchLive2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { path: '/watch/video/:videoId', component: _Watch2.default })
         )
@@ -4130,6 +4127,17 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
+
+/***/ }),
+
+/***/ "./src/App.scss":
+/*!**********************!*\
+  !*** ./src/App.scss ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -4180,9 +4188,17 @@ var Guide = function (_React$Component) {
     key: 'render',
     value: function render() {
       var channels = [{
-        id: 2292,
+        id: 1,
         title: 'Fox',
         logo: 'fox.png'
+      }, {
+        id: 2,
+        title: 'NBC',
+        logo: 'nbc.png'
+      }, {
+        id: 3,
+        title: 'ABC',
+        logo: 'nbc.png'
       }];
 
       return _react2.default.createElement(
@@ -4443,7 +4459,9 @@ var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
+var _Guide = __webpack_require__(/*! @app/scenes/Guide */ "./src/scenes/Guide/Guide.jsx");
+
+var _Guide2 = _interopRequireDefault(_Guide);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4456,24 +4474,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var WatchLive = function (_React$Component) {
   _inherits(WatchLive, _React$Component);
 
-  function WatchLive() {
+  function WatchLive(props) {
     _classCallCheck(this, WatchLive);
 
-    return _possibleConstructorReturn(this, (WatchLive.__proto__ || Object.getPrototypeOf(WatchLive)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (WatchLive.__proto__ || Object.getPrototypeOf(WatchLive)).call(this, props));
+
+    _this.state = {
+      showGuide: false
+    };
+    return _this;
   }
 
   _createClass(WatchLive, [{
+    key: 'toggleGuide',
+    value: function toggleGuide() {
+      if (!this.state.showGuide) {
+        this.setState({ showGuide: true });
+      } else {
+        this.setState({ showGuide: true });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'video-player' },
         _react2.default.createElement('video', null),
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { className: 'video-player-guide-link', to: '/guide' },
+          'a',
+          { className: 'video-player-guide-link', onClick: function onClick() {
+              return _this2.toggleGuide();
+            } },
           'Back To Guide'
-        )
+        ),
+        this.state.showGuide ? _react2.default.createElement(_Guide2.default, null) : '',
+        this.props.children
       );
     }
   }]);

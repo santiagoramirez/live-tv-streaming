@@ -1,4 +1,20 @@
+body {
+  margin: 0;
+  font-family: 'Arial'; }
 
+.guide {
+  background-color: rgba(22, 57, 91, 0.95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.guide-item {
+  border-bottom: 1px solid #2b4b69;
+  color: #ffffff;
+  height: 45px;
+  padding: 15px 30px; }
 
 .video-player {
   background-color: #000000;

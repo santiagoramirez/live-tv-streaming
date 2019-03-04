@@ -4,7 +4,7 @@ import React from 'react'
 
 class TimeBar extends React.Component {
 
-  getTimeBarWidth() {
+  getWidth() {
     // This would eventually be pulled from the container containing guide row items.
     // For now, the window width works.
     let containerWidth = window.innerWidth
@@ -21,10 +21,10 @@ class TimeBar extends React.Component {
     let startTime = new Date('03/04/2019 ' + this.props.program.startTime)
     let endTime = new Date('03/04/2019 ' + this.props.program.endTime)
     let duration = (endTime - startTime) / 1000 / 60
-    let elapsed = startTime - firstTimeslot
+    let elapsed = (startTime - firstTimeslot) / 1000 / 60
 
     if (elapsed < 0) {
-      duration = duration + (elapsed / 1000 / 60)
+      duration = duration + elapsed
     }
 
     return (containerWidth * (duration / (4 * 30)))
@@ -32,7 +32,7 @@ class TimeBar extends React.Component {
 
   render() {
     return (
-      <div className="time-bar-item-wrapper" style={{width: this.getTimeBarWidth() + 'px'}}>
+      <div className="time-bar-item-wrapper" style={{width: this.getWidth() + 'px'}}>
         <div className="time-bar-item">
           <div className="time-bar-item-title">{this.props.program.title}</div>
           <div className="time-bar-item-description">{this.props.program.description}</div>

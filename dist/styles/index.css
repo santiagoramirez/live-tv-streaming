@@ -11,10 +11,24 @@ body {
   bottom: 0; }
 
 .guide-item {
-  border-bottom: 1px solid #2b4b69;
-  color: #ffffff;
+  border-bottom: 1px solid #3e5b76;
+  color: #ffffff; }
+
+.guide-item-timeslots {
+  white-space: nowrap; }
+
+.time-bar-item-wrapper {
+  display: inline-block; }
+
+.time-bar-item {
+  border-right: 1px solid #3e5b76;
   height: 45px;
   padding: 15px 30px; }
+  .time-bar-item:hover {
+    background: #3e5b76;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: .5s all ease; }
 
 .video-player {
   background-color: #000000;

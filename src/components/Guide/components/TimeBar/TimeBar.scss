@@ -1,0 +1,15 @@
+.time-bar-item-wrapper {
+  display: inline-block;
+}
+
+.time-bar-item {
+  border-right: 1px solid #3e5b76;
+  height: 45px;
+  padding: 15px 30px;
+  &:hover {
+    background: #3e5b76;
+    box-shadow: 0 0 20px rgba(#000000, .5);
+    cursor: pointer;
+    transition: .5s all ease;
+  }
+}

@@ -2,30 +2,17 @@ import './Guide.scss'
 
 import React from 'react'
 
-import GuideItem from './components/GuideItem'
+import RowItem from './components/RowItem'
+import channels from '@app/modules/guide-data'
 
 class Guide extends React.Component {
 
   render() {
-    const channels = [{
-      id: 1,
-      title: 'Fox',
-      logo: 'fox.png'
-    }, {
-      id: 2,
-      title: 'NBC',
-      logo: 'nbc.png'
-    }, {
-      id: 3,
-      title: 'ABC',
-      logo: 'nbc.png'
-    }]
-
     return (
       <div className="guide">
         <div className="guide-list">
           {channels.map((channel, i) =>
-            <GuideItem channel={channel} key={i}></GuideItem>
+            <RowItem channel={channel} key={i}></RowItem>
           )}
         </div>
       </div>

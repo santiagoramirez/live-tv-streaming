@@ -4169,9 +4169,13 @@ var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _GuideItem = __webpack_require__(/*! ./components/GuideItem */ "./src/components/Guide/components/GuideItem/GuideItem.jsx");
+var _RowItem = __webpack_require__(/*! ./components/RowItem */ "./src/components/Guide/components/RowItem/RowItem.jsx");
 
-var _GuideItem2 = _interopRequireDefault(_GuideItem);
+var _RowItem2 = _interopRequireDefault(_RowItem);
+
+var _guideData = __webpack_require__(/*! @app/modules/guide-data */ "./src/modules/guide-data.js");
+
+var _guideData2 = _interopRequireDefault(_guideData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4193,28 +4197,14 @@ var Guide = function (_React$Component) {
   _createClass(Guide, [{
     key: 'render',
     value: function render() {
-      var channels = [{
-        id: 1,
-        title: 'Fox',
-        logo: 'fox.png'
-      }, {
-        id: 2,
-        title: 'NBC',
-        logo: 'nbc.png'
-      }, {
-        id: 3,
-        title: 'ABC',
-        logo: 'nbc.png'
-      }];
-
       return _react2.default.createElement(
         'div',
         { className: 'guide' },
         _react2.default.createElement(
           'div',
           { className: 'guide-list' },
-          channels.map(function (channel, i) {
-            return _react2.default.createElement(_GuideItem2.default, { channel: channel, key: i });
+          _guideData2.default.map(function (channel, i) {
+            return _react2.default.createElement(_RowItem2.default, { channel: channel, key: i });
           })
         )
       );
@@ -4239,10 +4229,10 @@ exports.default = Guide;
 
 /***/ }),
 
-/***/ "./src/components/Guide/components/GuideItem/GuideItem.jsx":
-/*!*****************************************************************!*\
-  !*** ./src/components/Guide/components/GuideItem/GuideItem.jsx ***!
-  \*****************************************************************/
+/***/ "./src/components/Guide/components/RowItem/RowItem.jsx":
+/*!*************************************************************!*\
+  !*** ./src/components/Guide/components/RowItem/RowItem.jsx ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4255,7 +4245,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(/*! ./GuideItem.scss */ "./src/components/Guide/components/GuideItem/GuideItem.scss");
+__webpack_require__(/*! ./RowItem.scss */ "./src/components/Guide/components/RowItem/RowItem.scss");
 
 var _react = __webpack_require__(/*! react */ "react");
 
@@ -4264,6 +4254,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
+
+var _TimeBar = __webpack_require__(/*! @app/components/Guide/components/TimeBar */ "./src/components/Guide/components/TimeBar/TimeBar.jsx");
+
+var _TimeBar2 = _interopRequireDefault(_TimeBar);
 
 var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
 
@@ -4275,18 +4269,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var GuideItem = function (_React$Component) {
-  _inherits(GuideItem, _React$Component);
+var RowItem = function (_React$Component) {
+  _inherits(RowItem, _React$Component);
 
-  function GuideItem() {
-    _classCallCheck(this, GuideItem);
+  function RowItem() {
+    _classCallCheck(this, RowItem);
 
-    return _possibleConstructorReturn(this, (GuideItem.__proto__ || Object.getPrototypeOf(GuideItem)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (RowItem.__proto__ || Object.getPrototypeOf(RowItem)).apply(this, arguments));
   }
 
-  _createClass(GuideItem, [{
-    key: 'handleGuideItemClick',
-    value: function handleGuideItemClick() {
+  _createClass(RowItem, [{
+    key: 'handleRowItemClick',
+    value: function handleRowItemClick() {
       this.props.hideGuide();
       this.props.history.push('/watch/live/' + this.props.channel.id);
     }
@@ -4295,10 +4289,12 @@ var GuideItem = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var showtimes = this.props.channel.showtimes;
+
       return _react2.default.createElement(
         'a',
         { onClick: function onClick() {
-            return _this2.handleGuideItemClick();
+            return _this2.handleRowItemClick();
           } },
         _react2.default.createElement(
           'div',
@@ -4307,13 +4303,20 @@ var GuideItem = function (_React$Component) {
             'div',
             { className: 'guide-item-logo' },
             _react2.default.createElement('img', { src: this.props.channel.logo, alt: this.props.channel.title })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'guide-item-timeslots' },
+            showtimes.map(function (program, index) {
+              return _react2.default.createElement(_TimeBar2.default, { program: program, key: index });
+            })
           )
         )
       );
     }
   }]);
 
-  return GuideItem;
+  return RowItem;
 }(_react2.default.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -4324,18 +4327,176 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactRouterDom.withRouter)(GuideItem));
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactRouterDom.withRouter)(RowItem));
 
 /***/ }),
 
-/***/ "./src/components/Guide/components/GuideItem/GuideItem.scss":
-/*!******************************************************************!*\
-  !*** ./src/components/Guide/components/GuideItem/GuideItem.scss ***!
-  \******************************************************************/
+/***/ "./src/components/Guide/components/RowItem/RowItem.scss":
+/*!**************************************************************!*\
+  !*** ./src/components/Guide/components/RowItem/RowItem.scss ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/components/Guide/components/TimeBar/TimeBar.jsx":
+/*!*************************************************************!*\
+  !*** ./src/components/Guide/components/TimeBar/TimeBar.jsx ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(/*! ./TimeBar.scss */ "./src/components/Guide/components/TimeBar/TimeBar.scss");
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TimeBar = function (_React$Component) {
+  _inherits(TimeBar, _React$Component);
+
+  function TimeBar() {
+    _classCallCheck(this, TimeBar);
+
+    return _possibleConstructorReturn(this, (TimeBar.__proto__ || Object.getPrototypeOf(TimeBar)).apply(this, arguments));
+  }
+
+  _createClass(TimeBar, [{
+    key: 'getTimeBarWidth',
+    value: function getTimeBarWidth() {
+      // This would eventually be pulled from the container containing guide row items.
+      // For now, the window width works.
+      var containerWidth = window.innerWidth;
+
+      // This would eventually be created dynamically.
+      var firstTimeslot = new Date('03/04/2019 18:23:00');
+
+      if (firstTimeslot.getMinutes() > 30) {
+        firstTimeslot.setMinutes(30);
+      } else {
+        firstTimeslot.setMinutes(0);
+      }
+
+      var startTime = new Date('03/04/2019 ' + this.props.program.startTime);
+      var endTime = new Date('03/04/2019 ' + this.props.program.endTime);
+      var duration = (endTime - startTime) / 1000 / 60;
+      var elapsed = startTime - firstTimeslot;
+
+      if (elapsed < 0) {
+        duration = duration + elapsed / 1000 / 60;
+      }
+
+      return containerWidth * (duration / (4 * 30));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'time-bar-item-wrapper', style: { width: this.getTimeBarWidth() + 'px' } },
+        _react2.default.createElement(
+          'div',
+          { className: 'time-bar-item' },
+          _react2.default.createElement(
+            'div',
+            { className: 'time-bar-item-title' },
+            this.props.program.title
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'time-bar-item-description' },
+            this.props.program.description
+          )
+        )
+      );
+    }
+  }]);
+
+  return TimeBar;
+}(_react2.default.Component);
+
+exports.default = TimeBar;
+
+/***/ }),
+
+/***/ "./src/components/Guide/components/TimeBar/TimeBar.scss":
+/*!**************************************************************!*\
+  !*** ./src/components/Guide/components/TimeBar/TimeBar.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/modules/guide-data.js":
+/*!***********************************!*\
+  !*** ./src/modules/guide-data.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+/**
+ * Guide Channel Data
+ */
+
+exports.default = [{
+  id: 1,
+  title: 'Fox',
+  showtimes: [{
+    title: 'Local News',
+    startTime: '18:00:00',
+    endTime: '18:30:00'
+  }, {
+    title: 'CBS Evening News',
+    startTime: '18:30:00',
+    endTime: '19:00:00'
+  }, {
+    title: '60 Minutes',
+    startTime: '19:00:00',
+    endTime: '20:00:00'
+  }, {
+    title: 'Big Bang Theory',
+    startTime: '20:00:00',
+    endTime: '20:30:00'
+  }]
+}, {
+  id: 2,
+  title: 'NBC',
+  showtimes: []
+}, {
+  id: 3,
+  title: 'ABC',
+  showtimes: []
+}];
 
 /***/ }),
 

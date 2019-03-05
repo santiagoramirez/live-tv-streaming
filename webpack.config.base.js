@@ -11,9 +11,10 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           plugins: [
+            ['syntax-dynamic-import'],
             ['transform-async-to-promises'],
             ['transform-class-properties'],
-            ['transform-object-rest-spread']
+            ['transform-object-rest-spread'],
           ],
           presets: [
             'es2015',

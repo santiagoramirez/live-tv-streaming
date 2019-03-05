@@ -112,9 +112,9 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-
 
 var _server = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.js");
 
-var _App = __webpack_require__(/*! @app/App.jsx */ "./src/App.jsx");
+var _ServerApp = __webpack_require__(/*! @app/ServerApp.jsx */ "./src/ServerApp.jsx");
 
-var _App2 = _interopRequireDefault(_App);
+var _ServerApp2 = _interopRequireDefault(_ServerApp);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -133,7 +133,7 @@ server.get('/watch*', function (request, response) {
   var renderedHTML = (0, _server.renderToString)(_react2.default.createElement(
     _reactRouterDom.StaticRouter,
     { location: request.url, context: {} },
-    _react2.default.createElement(_App2.default, null)
+    _react2.default.createElement(_ServerApp2.default, null)
   ));
 
   response.render('app.mustache', {
@@ -4052,10 +4052,10 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./src/App.jsx":
-/*!*********************!*\
-  !*** ./src/App.jsx ***!
-  \*********************/
+/***/ "./src/ServerApp.jsx":
+/*!***************************!*\
+  !*** ./src/ServerApp.jsx ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4068,8 +4068,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(/*! ./App.scss */ "./src/App.scss");
-
 var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
@@ -4077,6 +4075,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
+
+var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
+
+var _store2 = _interopRequireDefault(_store);
 
 var _Guide = __webpack_require__(/*! @app/scenes/Guide */ "./src/scenes/Guide/Guide.jsx");
 
@@ -4089,10 +4091,6 @@ var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 var _Watch = __webpack_require__(/*! @app/scenes/Watch */ "./src/scenes/Watch/Watch.jsx");
 
 var _Watch2 = _interopRequireDefault(_Watch);
-
-var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
-
-var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4133,17 +4131,6 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
-
-/***/ }),
-
-/***/ "./src/App.scss":
-/*!**********************!*\
-  !*** ./src/App.scss ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 

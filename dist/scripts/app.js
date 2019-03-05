@@ -14850,10 +14850,21 @@ module.exports = function (module) {
 
 /***/ }),
 
-/***/ "./src/App.jsx":
-/*!*********************!*\
-  !*** ./src/App.jsx ***!
-  \*********************/
+/***/ "./src/App.scss":
+/*!**********************!*\
+  !*** ./src/App.scss ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/ClientApp.jsx":
+/*!***************************!*\
+  !*** ./src/ClientApp.jsx ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14876,6 +14887,10 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 
+var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
+
+var _store2 = _interopRequireDefault(_store);
+
 var _Guide = __webpack_require__(/*! @app/scenes/Guide */ "./src/scenes/Guide/Guide.jsx");
 
 var _Guide2 = _interopRequireDefault(_Guide);
@@ -14887,10 +14902,6 @@ var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 var _Watch = __webpack_require__(/*! @app/scenes/Watch */ "./src/scenes/Watch/Watch.jsx");
 
 var _Watch2 = _interopRequireDefault(_Watch);
-
-var _store = __webpack_require__(/*! @app/store */ "./src/store/index.js");
-
-var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14934,17 +14945,6 @@ exports.default = App;
 
 /***/ }),
 
-/***/ "./src/App.scss":
-/*!**********************!*\
-  !*** ./src/App.scss ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./src/app.js":
 /*!********************!*\
   !*** ./src/app.js ***!
@@ -14963,16 +14963,16 @@ var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/i
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 
-var _App = __webpack_require__(/*! @app/App.jsx */ "./src/App.jsx");
+var _ClientApp = __webpack_require__(/*! @app/ClientApp.jsx */ "./src/ClientApp.jsx");
 
-var _App2 = _interopRequireDefault(_App);
+var _ClientApp2 = _interopRequireDefault(_ClientApp);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.hydrate)(_react2.default.createElement(
   _reactRouterDom.BrowserRouter,
   null,
-  _react2.default.createElement(_App2.default, null)
+  _react2.default.createElement(_ClientApp2.default, null)
 ), document.querySelector('#app'));
 
 /***/ }),

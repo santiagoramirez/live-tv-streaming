@@ -4,7 +4,7 @@ import React from 'react'
 import {StaticRouter} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
 
-import App from '@app/App.jsx'
+import App from '@app/ServerApp.jsx'
 
 const server = express()
 const port = 3000

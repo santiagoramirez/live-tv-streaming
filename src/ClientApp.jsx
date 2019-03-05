@@ -1,13 +1,13 @@
 import './App.scss'
 
 import React from 'react'
-import {Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import {Route, Switch} from 'react-router-dom'
+import store from '@app/store'
 
 import Guide from '@app/scenes/Guide'
 import VideoPlayer from '@app/scenes/VideoPlayer'
 import Watch from '@app/scenes/Watch'
-import store from '@app/store'
 
 class App extends React.Component {
 

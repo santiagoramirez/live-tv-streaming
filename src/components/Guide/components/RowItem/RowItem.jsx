@@ -15,7 +15,13 @@ class RowItem extends React.Component {
   }
 
   render() {
-    const showtimes = this.props.channel.showtimes
+    const showtimes = this.props.channel.showtimes.filter((showtime) => {
+      const now = new Date()
+      const endTime = new Date(showtime.endTime)
+      endTime.setMonth(now.getMonth())
+      endTime.setDate(now.getDate())
+      return endTime > now
+    })
 
     return (
       <a onClick={() => this.handleRowItemClick()}>

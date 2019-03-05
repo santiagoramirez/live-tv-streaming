@@ -7,10 +7,10 @@ class TimeBar extends React.Component {
   getWidth() {
     // This would eventually be pulled from the container containing guide row items.
     // For now, the window width works.
-    let containerWidth = window.innerWidth
+    let containerWidth = (typeof window !== 'undefined') ? window.innerWidth : 0
 
     // This would eventually be created dynamically.
-    let firstTimeslot = new Date('03/04/2019 18:23:00')
+    let firstTimeslot = new Date()
 
     if (firstTimeslot.getMinutes() > 30) {
       firstTimeslot.setMinutes(30)
@@ -18,8 +18,15 @@ class TimeBar extends React.Component {
       firstTimeslot.setMinutes(0)
     }
 
-    let startTime = new Date('03/04/2019 ' + this.props.program.startTime)
-    let endTime = new Date('03/04/2019 ' + this.props.program.endTime)
+    let startTime = new Date(this.props.program.startTime)
+    let endTime = new Date(this.props.program.endTime)
+
+    startTime.setMonth(firstTimeslot.getMonth())
+    startTime.setDate(firstTimeslot.getDate())
+
+    endTime.setMonth(firstTimeslot.getMonth())
+    endTime.setDate(firstTimeslot.getDate())
+
     let duration = (endTime - startTime) / 1000 / 60
     let elapsed = (startTime - firstTimeslot) / 1000 / 60
 
@@ -31,8 +38,10 @@ class TimeBar extends React.Component {
   }
 
   render() {
+    const width = this.getWidth()
+
     return (
-      <div className="time-bar-item-wrapper" style={{width: this.getWidth() + 'px'}}>
+      <div className="time-bar-item-wrapper" style={{width: width + 'px'}}>
         <div className="time-bar-item">
           <div className="time-bar-item-title">{this.props.program.title}</div>
           <div className="time-bar-item-description">{this.props.program.description}</div>

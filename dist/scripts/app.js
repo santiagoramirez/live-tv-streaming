@@ -15119,7 +15119,13 @@ var RowItem = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var showtimes = this.props.channel.showtimes;
+      var showtimes = this.props.channel.showtimes.filter(function (showtime) {
+        var now = new Date();
+        var endTime = new Date(showtime.endTime);
+        endTime.setMonth(now.getMonth());
+        endTime.setDate(now.getDate());
+        return endTime > now;
+      });
 
       return _react2.default.createElement(
         'a',
@@ -15212,14 +15218,14 @@ var TimeBar = function (_React$Component) {
   }
 
   _createClass(TimeBar, [{
-    key: 'getTimeBarWidth',
-    value: function getTimeBarWidth() {
+    key: 'getWidth',
+    value: function getWidth() {
       // This would eventually be pulled from the container containing guide row items.
       // For now, the window width works.
-      var containerWidth = window.innerWidth;
+      var containerWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
 
       // This would eventually be created dynamically.
-      var firstTimeslot = new Date('03/04/2019 18:23:00');
+      var firstTimeslot = new Date();
 
       if (firstTimeslot.getMinutes() > 30) {
         firstTimeslot.setMinutes(30);
@@ -15227,13 +15233,20 @@ var TimeBar = function (_React$Component) {
         firstTimeslot.setMinutes(0);
       }
 
-      var startTime = new Date('03/04/2019 ' + this.props.program.startTime);
-      var endTime = new Date('03/04/2019 ' + this.props.program.endTime);
+      var startTime = new Date(this.props.program.startTime);
+      var endTime = new Date(this.props.program.endTime);
+
+      startTime.setMonth(firstTimeslot.getMonth());
+      startTime.setDate(firstTimeslot.getDate());
+
+      endTime.setMonth(firstTimeslot.getMonth());
+      endTime.setDate(firstTimeslot.getDate());
+
       var duration = (endTime - startTime) / 1000 / 60;
-      var elapsed = startTime - firstTimeslot;
+      var elapsed = (startTime - firstTimeslot) / 1000 / 60;
 
       if (elapsed < 0) {
-        duration = duration + elapsed / 1000 / 60;
+        duration = duration + elapsed;
       }
 
       return containerWidth * (duration / (4 * 30));
@@ -15241,9 +15254,11 @@ var TimeBar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var width = this.getWidth();
+
       return _react2.default.createElement(
         'div',
-        { className: 'time-bar-item-wrapper', style: { width: this.getTimeBarWidth() + 'px' } },
+        { className: 'time-bar-item-wrapper', style: { width: width + 'px' } },
         _react2.default.createElement(
           'div',
           { className: 'time-bar-item' },
@@ -15302,30 +15317,54 @@ exports.default = [{
   id: 1,
   title: 'Fox',
   showtimes: [{
-    title: 'Local News',
-    startTime: '18:00:00',
-    endTime: '18:30:00'
+    title: 'CBS 2 News at 5PM',
+    startTime: '01/01/2019 17:00:00',
+    endTime: '01/01/2019 18:00:00'
   }, {
-    title: 'CBS Evening News',
-    startTime: '18:30:00',
-    endTime: '19:00:00'
+    title: 'CBS 2 News at 6PM',
+    startTime: '01/01/2019 18:00:00',
+    endTime: '01/01/2019 18:30:00'
+  }, {
+    title: 'CBS Evening News with Jeff Glor',
+    startTime: '01/01/2019 18:30:00',
+    endTime: '01/01/2019 19:00:00'
   }, {
     title: '60 Minutes',
-    startTime: '19:00:00',
-    endTime: '20:00:00'
+    startTime: '01/01/2019 19:00:00',
+    endTime: '01/01/2019 20:00:00'
   }, {
     title: 'Big Bang Theory',
-    startTime: '20:00:00',
-    endTime: '20:30:00'
+    startTime: '01/01/2019 20:00:00',
+    endTime: '01/01/2019 20:30:00'
   }]
 }, {
   id: 2,
   title: 'NBC',
-  showtimes: []
-}, {
-  id: 3,
-  title: 'ABC',
-  showtimes: []
+  showtimes: [{
+    title: 'News 4 NY at 4',
+    startTime: '01/01/2019 16:00:00',
+    endTime: '01/01/2019 16:30:00'
+  }, {
+    title: 'News 4 NY at 4:30',
+    startTime: '01/01/2019 16:30:00',
+    endTime: '01/01/2019 17:00:00'
+  }, {
+    title: 'News 4 NY at 5',
+    startTime: '01/01/2019 17:00:00',
+    endTime: '01/01/2019 17:30:00'
+  }, {
+    title: 'News 4 NY at 5:30',
+    startTime: '01/01/2019 17:30:00',
+    endTime: '01/01/2019 18:00:00'
+  }, {
+    title: 'News 4 NY at 6',
+    startTime: '01/01/2019 18:00:00',
+    endTime: '01/01/2019 18:30:00'
+  }, {
+    title: 'NBC Nightly News With Lester Holt',
+    startTime: '01/01/2019 18:30:00',
+    endTime: '01/01/2019 19:00:00'
+  }]
 }];
 
 /***/ }),

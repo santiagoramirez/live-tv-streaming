@@ -10,25 +10,28 @@ body {
   right: 0;
   bottom: 0; }
 
-.guide-item {
-  border-bottom: 1px solid #3e5b76;
-  color: #ffffff; }
-
-.guide-item-timeslots {
+.guide-timeslots {
+  overflow: scroll;
   white-space: nowrap; }
 
-.time-bar-item-wrapper {
-  display: inline-block; }
+.timeslot-row {
+  height: 76px;
+  position: relative;
+  white-space: nowrap; }
 
-.time-bar-item {
-  border-right: 1px solid #3e5b76;
-  height: 45px;
-  padding: 15px 30px; }
-  .time-bar-item:hover {
-    background: #3e5b76;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    transition: .5s all ease; }
+.timeslot-item {
+  color: #ffffff;
+  position: absolute; }
+  .timeslot-item .timeslot-item-inner {
+    border-right: 1px solid #3e5b76;
+    border-bottom: 1px solid #3e5b76;
+    height: 45px;
+    padding: 15px 30px; }
+    .timeslot-item .timeslot-item-inner:hover {
+      background: #3e5b76;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: .5s all ease; }
 
 .video-player {
   background-color: #000000;

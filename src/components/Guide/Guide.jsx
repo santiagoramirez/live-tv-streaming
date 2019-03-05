@@ -1,8 +1,7 @@
 import './Guide.scss'
 
 import React from 'react'
-
-import RowItem from './components/RowItem'
+import TimeslotRow from './components/TimeslotRow'
 import channels from '@app/modules/guide-data'
 
 class Guide extends React.Component {
@@ -10,9 +9,9 @@ class Guide extends React.Component {
   render() {
     return (
       <div className="guide">
-        <div className="guide-list">
+        <div className="guide-timeslots">
           {channels.map((channel, i) =>
-            <RowItem channel={channel} key={i}></RowItem>
+            <TimeslotRow channel={channel} key={i}></TimeslotRow>
           )}
         </div>
       </div>

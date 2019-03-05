@@ -4169,9 +4169,9 @@ var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _RowItem = __webpack_require__(/*! ./components/RowItem */ "./src/components/Guide/components/RowItem/RowItem.jsx");
+var _TimeslotRow = __webpack_require__(/*! ./components/TimeslotRow */ "./src/components/Guide/components/TimeslotRow/TimeslotRow.jsx");
 
-var _RowItem2 = _interopRequireDefault(_RowItem);
+var _TimeslotRow2 = _interopRequireDefault(_TimeslotRow);
 
 var _guideData = __webpack_require__(/*! @app/modules/guide-data */ "./src/modules/guide-data.js");
 
@@ -4202,9 +4202,9 @@ var Guide = function (_React$Component) {
         { className: 'guide' },
         _react2.default.createElement(
           'div',
-          { className: 'guide-list' },
+          { className: 'guide-timeslots' },
           _guideData2.default.map(function (channel, i) {
-            return _react2.default.createElement(_RowItem2.default, { channel: channel, key: i });
+            return _react2.default.createElement(_TimeslotRow2.default, { channel: channel, key: i });
           })
         )
       );
@@ -4229,10 +4229,10 @@ exports.default = Guide;
 
 /***/ }),
 
-/***/ "./src/components/Guide/components/RowItem/RowItem.jsx":
-/*!*************************************************************!*\
-  !*** ./src/components/Guide/components/RowItem/RowItem.jsx ***!
-  \*************************************************************/
+/***/ "./src/components/Guide/components/TimeslotItem/TimeslotItem.jsx":
+/*!***********************************************************************!*\
+  !*** ./src/components/Guide/components/TimeslotItem/TimeslotItem.jsx ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4245,7 +4245,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(/*! ./RowItem.scss */ "./src/components/Guide/components/RowItem/RowItem.scss");
+__webpack_require__(/*! ./TimeslotItem.scss */ "./src/components/Guide/components/TimeslotItem/TimeslotItem.scss");
 
 var _react = __webpack_require__(/*! react */ "react");
 
@@ -4254,10 +4254,6 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "react-router-dom");
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "react-redux");
-
-var _TimeBar = __webpack_require__(/*! @app/components/Guide/components/TimeBar */ "./src/components/Guide/components/TimeBar/TimeBar.jsx");
-
-var _TimeBar2 = _interopRequireDefault(_TimeBar);
 
 var _actions = __webpack_require__(/*! @app/store/video-player/actions */ "./src/store/video-player/actions.js");
 
@@ -4269,125 +4265,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var RowItem = function (_React$Component) {
-  _inherits(RowItem, _React$Component);
+var TimeslotItem = function (_React$Component) {
+  _inherits(TimeslotItem, _React$Component);
 
-  function RowItem() {
-    _classCallCheck(this, RowItem);
+  function TimeslotItem() {
+    _classCallCheck(this, TimeslotItem);
 
-    return _possibleConstructorReturn(this, (RowItem.__proto__ || Object.getPrototypeOf(RowItem)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (TimeslotItem.__proto__ || Object.getPrototypeOf(TimeslotItem)).apply(this, arguments));
   }
 
-  _createClass(RowItem, [{
-    key: 'handleRowItemClick',
-    value: function handleRowItemClick() {
+  _createClass(TimeslotItem, [{
+    key: 'handleClick',
+    value: function handleClick() {
       this.props.hideGuide();
-      this.props.history.push('/watch/live/' + this.props.channel.id);
+      this.props.history.push('/watch/live/' + this.props.program.id);
     }
   }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var showtimes = this.props.channel.showtimes.filter(function (showtime) {
-        var now = new Date();
-        var endTime = new Date(showtime.endTime);
-        endTime.setMonth(now.getMonth());
-        endTime.setDate(now.getDate());
-        return endTime > now;
-      });
-
-      return _react2.default.createElement(
-        'a',
-        { onClick: function onClick() {
-            return _this2.handleRowItemClick();
-          } },
-        _react2.default.createElement(
-          'div',
-          { className: 'guide-item' },
-          _react2.default.createElement(
-            'div',
-            { className: 'guide-item-logo' },
-            _react2.default.createElement('img', { src: this.props.channel.logo, alt: this.props.channel.title })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'guide-item-timeslots' },
-            showtimes.map(function (program, index) {
-              return _react2.default.createElement(_TimeBar2.default, { program: program, key: index });
-            })
-          )
-        )
-      );
+    key: 'getPosition',
+    value: function getPosition() {
+      var containerWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+      var timeslotWidth = containerWidth / 4;
+      var totalGuideWidth = 1440 / 30 * timeslotWidth;
+      var startTime = new Date(this.props.program.startTime);
+      var positionPercent = (startTime.getHours() * 60 + startTime.getMinutes()) / 1440;
+      var position = positionPercent * totalGuideWidth;
+      return position;
     }
-  }]);
-
-  return RowItem;
-}(_react2.default.Component);
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    hideGuide: function hideGuide() {
-      return dispatch((0, _actions.hideGuide)());
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactRouterDom.withRouter)(RowItem));
-
-/***/ }),
-
-/***/ "./src/components/Guide/components/RowItem/RowItem.scss":
-/*!**************************************************************!*\
-  !*** ./src/components/Guide/components/RowItem/RowItem.scss ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "./src/components/Guide/components/TimeBar/TimeBar.jsx":
-/*!*************************************************************!*\
-  !*** ./src/components/Guide/components/TimeBar/TimeBar.jsx ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-__webpack_require__(/*! ./TimeBar.scss */ "./src/components/Guide/components/TimeBar/TimeBar.scss");
-
-var _react = __webpack_require__(/*! react */ "react");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TimeBar = function (_React$Component) {
-  _inherits(TimeBar, _React$Component);
-
-  function TimeBar() {
-    _classCallCheck(this, TimeBar);
-
-    return _possibleConstructorReturn(this, (TimeBar.__proto__ || Object.getPrototypeOf(TimeBar)).apply(this, arguments));
-  }
-
-  _createClass(TimeBar, [{
+  }, {
     key: 'getWidth',
     value: function getWidth() {
       // This would eventually be pulled from the container containing guide row items.
@@ -4413,33 +4317,33 @@ var TimeBar = function (_React$Component) {
       endTime.setDate(firstTimeslot.getDate());
 
       var duration = (endTime - startTime) / 1000 / 60;
-      var elapsed = (startTime - firstTimeslot) / 1000 / 60;
-
-      if (elapsed < 0) {
-        duration = duration + elapsed;
-      }
 
       return containerWidth * (duration / (4 * 30));
     }
   }, {
     key: 'render',
     value: function render() {
-      var width = this.getWidth();
+      var _this2 = this;
+
+      var width = this.getWidth() + 'px';
+      var left = this.getPosition() + 'px';
 
       return _react2.default.createElement(
         'div',
-        { className: 'time-bar-item-wrapper', style: { width: width + 'px' } },
+        { className: 'timeslot-item', style: { width: width, left: left }, onClick: function onClick() {
+            return _this2.handleClick();
+          } },
         _react2.default.createElement(
           'div',
-          { className: 'time-bar-item' },
+          { className: 'timeslot-item-inner' },
           _react2.default.createElement(
             'div',
-            { className: 'time-bar-item-title' },
+            { className: 'timeslot-item-title' },
             this.props.program.title
           ),
           _react2.default.createElement(
             'div',
-            { className: 'time-bar-item-description' },
+            { className: 'timeslot-item-description' },
             this.props.program.description
           )
         )
@@ -4447,17 +4351,107 @@ var TimeBar = function (_React$Component) {
     }
   }]);
 
-  return TimeBar;
+  return TimeslotItem;
 }(_react2.default.Component);
 
-exports.default = TimeBar;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    hideGuide: function hideGuide() {
+      return dispatch((0, _actions.hideGuide)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactRouterDom.withRouter)(TimeslotItem));
 
 /***/ }),
 
-/***/ "./src/components/Guide/components/TimeBar/TimeBar.scss":
-/*!**************************************************************!*\
-  !*** ./src/components/Guide/components/TimeBar/TimeBar.scss ***!
-  \**************************************************************/
+/***/ "./src/components/Guide/components/TimeslotItem/TimeslotItem.scss":
+/*!************************************************************************!*\
+  !*** ./src/components/Guide/components/TimeslotItem/TimeslotItem.scss ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/components/Guide/components/TimeslotRow/TimeslotRow.jsx":
+/*!*********************************************************************!*\
+  !*** ./src/components/Guide/components/TimeslotRow/TimeslotRow.jsx ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(/*! ./TimeslotRow.scss */ "./src/components/Guide/components/TimeslotRow/TimeslotRow.scss");
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TimeslotItem = __webpack_require__(/*! @app/components/Guide/components/TimeslotItem */ "./src/components/Guide/components/TimeslotItem/TimeslotItem.jsx");
+
+var _TimeslotItem2 = _interopRequireDefault(_TimeslotItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TimeslotRow = function (_React$Component) {
+  _inherits(TimeslotRow, _React$Component);
+
+  function TimeslotRow() {
+    _classCallCheck(this, TimeslotRow);
+
+    return _possibleConstructorReturn(this, (TimeslotRow.__proto__ || Object.getPrototypeOf(TimeslotRow)).apply(this, arguments));
+  }
+
+  _createClass(TimeslotRow, [{
+    key: 'render',
+    value: function render() {
+      var showtimes = this.props.channel.showtimes.filter(function (showtime) {
+        var now = new Date();
+        var endTime = new Date(showtime.endTime);
+        endTime.setMonth(now.getMonth());
+        endTime.setDate(now.getDate());
+        return endTime > now;
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'timeslot-row' },
+        showtimes.map(function (program, index) {
+          return _react2.default.createElement(_TimeslotItem2.default, { program: program, key: index });
+        })
+      );
+    }
+  }]);
+
+  return TimeslotRow;
+}(_react2.default.Component);
+
+exports.default = TimeslotRow;
+
+/***/ }),
+
+/***/ "./src/components/Guide/components/TimeslotRow/TimeslotRow.scss":
+/*!**********************************************************************!*\
+  !*** ./src/components/Guide/components/TimeslotRow/TimeslotRow.scss ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
